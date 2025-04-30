@@ -1,18 +1,33 @@
-import { useState } from 'react';
-import { Header } from '../components/Layout/Header';
-import { Footer } from '../components/Layout/Footer';
-import { LoginModal } from '../components/utils/LoginModal';
-import { NewsFeed } from '../components/utils/NewsFeed';
+import { useState, useEffect } from 'react';
+import { supabase } from '../components/services/supabaseClient';
 
-export default function Home() {
+export function Home() {
+  const [news, setNews] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Você pode integrar com uma API para puxar notícias sobre FURIA, por exemplo.
+    // Exemplo fictício:
+    setNews([
+      'FURIA vence grande campeonato!',
+      'FURIA anuncia novo patrocinador!',
+      'Próximo jogo da FURIA será contra X!'
+    ]);
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-black to-gray-900 text-white">
-      <Header />
-      <main className="flex-1 container mx-auto p-4">
-        <h2 className="text-3xl font-bold mb-6">Últimas da FURIA</h2>
-        <NewsFeed />
-      </main>
-      <Footer />
+    <div className="bg-gray-900 text-white p-8">
+      <h1 className="text-3xl font-bold mb-6">Bem-vindo ao Know Your Fan!</h1>
+      <div className="mb-6">
+        <h2 className="text-xl mb-4">Últimas notícias da FURIA:</h2>
+        <ul className="list-disc pl-5">
+          {news.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </div>
+      <footer className="text-sm text-center">
+        <p>&copy; 2025 Know Your Fan. Todos os direitos reservados.</p>
+      </footer>
     </div>
   );
 }

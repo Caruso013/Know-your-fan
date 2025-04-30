@@ -1,21 +1,14 @@
-import { useState } from 'react';
-import { LoginModal } from '../utils/LoginModal';
-
-export function Header() {
-  const [showModal, setShowModal] = useState(false);
-
+// Header.tsx
+export const Header = ({ openModal }: { openModal: () => void }) => {
   return (
-    <header className="flex justify-between items-center p-4 bg-black text-white">
-      <h1 className="text-2xl font-bold">Know Your Fan</h1>
-      <button
-        onClick={() => setShowModal(true)}
-        className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-800"
-      >
-        Login
-      </button>
-      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
-    </header>
+    <div className="flex justify-between items-center bg-blue-500 p-4 text-white">
+      <div>Logo</div>
+      <div>
+        <button onClick={openModal} className="mx-4">
+          Sign Up
+        </button>
+        <button onClick={openModal}>Login</button>
+      </div>
+    </div>
   );
-}
-
-export default Header;
+};
