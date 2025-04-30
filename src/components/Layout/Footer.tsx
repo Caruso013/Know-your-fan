@@ -1,11 +1,7 @@
-import React from 'react';
-
-const Footer: React.FC = () => {
+export function Footer() {
   return (
-    <footer className="bg-furiaBlack text-white p-4 mt-10">
-      <p className="text-center text-sm">© 2025 FURIA Esports. Todos os direitos reservados.</p>
+    <footer className="text-center text-gray-400 text-sm p-4 bg-black">
+      © 2025 Know Your Fan - Projeto de Pedro Domingos
     </footer>
   );
-};
-
-export default Footer;
+}
