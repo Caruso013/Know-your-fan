@@ -5,88 +5,65 @@ interface UserFormProps {
   onSubmit: (userData: { name: string; age: number; email: string }) => void;
 }
 
-export const UserForm = ({ onClose, onSubmit }: UserFormProps) => {
+export const UserForm: React.FC<UserFormProps> = ({ onClose, onSubmit }) => {
   const [name, setName] = useState('');
-  const [age, setAge] = useState('');
+  const [age, setAge] = useState<number | ''>('');
   const [email, setEmail] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Validando se a idade é um número positivo
-    const ageNumber = parseInt(age, 10);
-    if (ageNumber < 0) {
-      alert('A idade não pode ser negativa!');
+    if (!name || !age || !email) {
+      alert('Por favor, preencha todos os campos.');
       return;
     }
 
-    onSubmit({
-      name,
-      age: ageNumber,
-      email,
-    });
-    onClose(); // Fechar o modal após o envio
+    onSubmit({ name, age: Number(age), email });
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-        <h2 className="text-2xl font-bold mb-4">Cadastro de Usuário</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1" htmlFor="name">
-              Nome
-            </label>
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+      <div className="bg-gray-900 text-white p-6 rounded-lg shadow-xl w-full max-w-md relative">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-3 text-gray-400 hover:text-white text-xl font-bold"
+        >
+          ×
+        </button>
+        <h2 className="text-2xl font-bold mb-4 text-center">Cadastro de Fã</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium">Nome</label>
             <input
               type="text"
-              id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              required
+              className="w-full p-2 mt-1 bg-gray-800 text-white border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1" htmlFor="age">
-              Idade
-            </label>
+          <div>
+            <label className="block text-sm font-medium">Idade</label>
             <input
               type="number"
-              id="age"
               value={age}
-              onChange={(e) => setAge(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              min="0" // Impede números negativos
-              required
+              onChange={(e) => setAge(e.target.valueAsNumber || '')}
+              className="w-full p-2 mt-1 bg-gray-800 text-white border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1" htmlFor="email">
-              Email
-            </label>
+          <div>
+            <label className="block text-sm font-medium">Email</label>
             <input
               type="email"
-              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              required
+              className="w-full p-2 mt-1 bg-gray-800 text-white border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
             />
           </div>
-          <div className="flex justify-between">
-            <button
-              type="button"
-              onClick={onClose}
-              className="py-2 px-4 bg-gray-300 rounded hover:bg-gray-400"
-            >
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              className="py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-              Enviar
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-semibold py-2 rounded transition-colors"
+          >
+            Cadastrar
+          </button>
         </form>
       </div>
     </div>
