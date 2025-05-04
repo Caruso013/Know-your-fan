@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../components/services/supabaseClient';
 
 export function Home() {
   const [news, setNews] = useState<string[]>([]);
 
   useEffect(() => {
-    // Você pode integrar com uma API para puxar notícias sobre FURIA, por exemplo.
-    // Exemplo fictício:
     setNews([
       'FURIA vence grande campeonato!',
       'FURIA anuncia novo patrocinador!',

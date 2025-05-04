@@ -29,7 +29,7 @@ function App() {
         alert('Erro ao salvar os dados. Verifique a tabela e permissões.');
       } else {
         if (Array.isArray(data) && data.length > 0) {
-          setUserData(data[0]); 
+          setUserData(data[0]);
         }
         alert('Cadastro realizado com sucesso!');
         closeModal();

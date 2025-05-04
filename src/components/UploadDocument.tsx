@@ -16,7 +16,7 @@ export function UploadDocument({ onUpload }: UploadProps) {
 
       const fileExt = file.name.split('.').pop();
       const fileName = `${Date.now()}.${fileExt}`;
-      const { data, error } = await supabase.storage.from('avatars').upload(fileName, file);
+      const { error } = await supabase.storage.from('avatars').upload(fileName, file);
 
       if (error) throw error;
 
